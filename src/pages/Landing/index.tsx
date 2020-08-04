@@ -8,7 +8,6 @@ import studyIcon from "../../assets/images/icons/study.svg";
 import giveClassesIcon from "../../assets/images/icons/give-classes.svg";
 import purpleHeartIcon from "../../assets/images/icons/purple-heart.svg";
 
-import "../../assets/styles/global.css";
 import "./styles.css";
 
 function Landing() {
