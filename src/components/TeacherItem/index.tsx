@@ -1,39 +1,51 @@
 import React from "react";
 import whatsAppIcon from "../../assets/images/icons/whatsapp.svg";
-import './styles.css'
-function TeacherItem() {
+import "./styles.css";
+import api from "../../services/api";
+
+export interface Teacher {
+  avatar: string;
+  bio: string;
+  cost: number;
+  id: number;
+  name: string;
+  subject: string;
+  whatsapp: string;
+}
+interface TeacherItemProps {
+  teacher: Teacher;
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+  function createNewConnection() {
+    api.post("connections", { user_id: teacher.id });
+  }
   return (
     <article className="teacher-item">
       <header>
-        <img
-          src="https://media.discordapp.net/attachments/482050007810310147/715600453437751356/99275967_662728614568077_1013703034514964480_n.png?width=359&height=468"
-          alt="avatar"
-        />
+        <img src={teacher.avatar} alt="avatar" />
         <div>
-          <strong>Jônatas Vargatt</strong>
-          <span>Química</span>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
         </div>
       </header>
-      <p>
-        Entusiasta das melhores tecnologias de química avançada.
-        <br />
-        <br />
-        Apaixonado por explodir coisas em laboratório e mudar a vida das pessoas
-        através de experiências. Mais de 200.000 pessoas já passaram por uma das
-        minhas explosões.
-      </p>
+      <p>{teacher.bio}</p>
       <footer>
         <p>
           Preço/hora
-          <strong>R$80,00</strong>
+          <strong>R$ {teacher.cost}</strong>
         </p>
-        <button type="button">
+        <a
+          target="_blank"
+          onClick={createNewConnection}
+          href={`https://wa.me/${teacher.whatsapp}`}
+        >
           <img src={whatsAppIcon} alt="wpp" />
           Entrar em contato
-        </button>
+        </a>
       </footer>
     </article>
   );
-}
+};
 
 export default TeacherItem;
